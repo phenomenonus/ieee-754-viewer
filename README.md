@@ -10,6 +10,10 @@ _It does not claim to replace the standard or be the final authority. Its purpos
 
 ## Table of contents
 
+- [Configuration](#configuration)
+  - [Localization](#localization)
+    - [Namespaces](#namespaces)
+    - [Languages](#languages)
 - [Development](#development)
   - [Quick start](#quick-start)
     - [Installation](#installation)
@@ -21,6 +25,51 @@ _It does not claim to replace the standard or be the final authority. Its purpos
   - [Math](#math)
   - [Computer Science](#computer-science)
 - [Copyright and License](#copyright-and-license)
+
+---
+
+## Configuration
+
+### Localization
+
+A language-region code is a two-letter language and two-letter region joined by a hyphen (ISO 639-1 + ISO 3166-1 alpha-2), e.g. "en-GB". Codes are defined in src/utils/language.ts (LanguageRegion).
+
+#### Namespaces
+
+1. Add/remove JSON files under locales/<lang-region>/<namespace>.json for each language.
+2. Edit src/i18n/nsMap.ts
+   - Import one language copy: `import myNs from "./locales/en-GB/myNs.json";`
+   - Add/remove entry in NsMap:
+     ```ts
+     export type NsMap = {
+       common: typeof common;
+       error: typeof error;
+       myNs: typeof myNs;
+     };
+     ```
+3. Edit src/i18n/namespaces.ts
+   - Add/remove namespace in `ns`:
+     ```ts
+     export const ns: Ns = ["common", "error", "myNs"];
+     ```
+   - Optionally set `defaultNS`:
+     ```ts
+     export const defaultNS: NsUnion = "myNs";
+     ```
+
+#### Languages
+
+1. Create/remove folder locales/<lang-region>/.
+2. Add/remove JSON files for every namespace inside that folder.
+3. Edit src/i18n/languages.ts
+   - Update `supportedLngs`:
+     ```ts
+     export const supportedLngs = [LanguageRegion.EN_GB, LanguageRegion.RU_RU, LanguageRegion.FR_FR] as const;
+     ```
+   - Optionally set `defaultLng`:
+     ```ts
+     export const defaultLng = LanguageRegion.EN_GB;
+     ```
 
 ---
 

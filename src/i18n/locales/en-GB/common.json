@@ -1,0 +1,92 @@
+{
+  "app": {
+    "header": "IEEE 754 standard visualization.",
+    "descrption": "It does not claim to replace the standard or be the final authority. Its purpose is to facilitate understanding of the standard."
+  },
+  "modal": {
+    "btn": {
+      "close": {
+        "hint": "Close"
+      }
+    }
+  },
+  "settings": {
+    "header": "Settings",
+    "list": {
+      "theme": "Theme",
+      "language": "Language"
+    }
+  },
+  "theme": {
+    "btn": {
+      "settings": {
+        "text": "Advanced theme settings"
+      },
+      "light": {
+        "text": "Light",
+        "hint": "Light theme (user mode)"
+      },
+      "dark": {
+        "text": "Dark",
+        "hint": "Dark theme (user mode)"
+      },
+      "system": {
+        "text": "System"
+      },
+      "user": {
+        "text": "User"
+      },
+      "lightScheme": {
+        "text": "Light",
+        "hint": "Light color schemes"
+      },
+      "darkScheme": {
+        "text": "Dark",
+        "hint": "Dark color schemes"
+      },
+      "reset": {
+        "text": "Reset Settings",
+        "hint": "Reset theme settings"
+      }
+    },
+    "section": {
+      "prefer": {
+        "hint": "Prefered theme mode"
+      },
+      "settings": {
+        "text": "Advanced theme settings"
+      },
+      "source": {
+        "text": "Source",
+        "hint": "A source manipulating the theme mode"
+      },
+      "mode": {
+        "text": "Mode",
+        "hint": "Active theme mode for current source"
+      },
+      "scheme": {
+        "text": "Color schemes",
+        "hint": "Select a color scheme for dark and light themes"
+      }
+    },
+    "msg": {
+      "systemNotDefined": "System mode is not defined",
+      "systemUseDark": "System uses dark mode",
+      "systemUseLight": "System uses light mode",
+      "userUseDark": "User uses dark mode",
+      "userUseLight": "User uses light mode"
+    }
+  },
+  "help": {
+    "btn": {
+      "help": {
+        "text": "Help"
+      }
+    },
+    "section": {
+      "help": {
+        "text": "Help"
+      }
+    }
+  }
+}

@@ -1,5 +1,8 @@
-import type React from "react";
+import React from "react";
+import { useTranslation } from "react-i18next";
 
 export const App: React.FC = () => {
-  return <div>App</div>;
+  const { t } = useTranslation();
+
+  return <div>{t("app.header")}</div>;
 };
