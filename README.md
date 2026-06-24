@@ -1,75 +1,104 @@
-# React + TypeScript + Vite
+# IEEE 754 Viewer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+IEEE 754 standard visualization.
 
-Currently, two official plugins are available:
+_It does not claim to replace the standard or be the final authority. Its purpose is to facilitate understanding of the standard._
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+![GitHub License](https://img.shields.io/github/license/phenomenonus/ieee-754-viewer?color=blue)
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Table of contents
 
-## Expanding the ESLint configuration
+- [Links](#links)
+  - [Development](#development-1)
+  - [Math](#math)
+  - [Computer Science](#computer-science)
+- [Copyright and License](#copyright-and-license)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Links
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Development
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- [development-guidelines](https://github.com/phenomenonus/development-guidelines) - Summary of development conventions — a concise overview of the project's rules and practices
+- [Vite](https://vite.dev/) – build tool for faster development
+  - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/tree/main) – Vite plugin for React support
+  - [vite-plugin-svgr](https://github.com/pd4d10/vite-plugin-svgr) - Vite plugin to transform SVGs into React components
+- [TypeScript](https://www.typescriptlang.org/) – typed superset of JavaScript
+- [React](https://react.dev/) - front-end framework
+- [react-i18next](https://react.i18next.com/) react-i18next is a powerful internationalization framework for React based on [i18next](https://www.i18next.com/)
+- [fluentui](https://github.com/microsoft/fluentui) - a collection of utilities, React components, and Web Components for building web applications
+- [Eslint](https://eslint.org/) - tool for fixing, finding, formatting
+- [Prettier](https://prettier.io/) - formatter
+- [commitlint](https://commitlint.js.org/) - Lint commit messages
+- [Husky](https://typicode.github.io/husky/) - Automatically lint your commit messages, code, and run tests upon committing or pushing
+- [lint-staged](https://github.com/lint-staged/lint-staged) - Run tasks like formatters and linters against staged git files and don't let 💩 slip into your code base
+- [CI](https://docs.github.com/en/actions/get-started) - GitHub Actions
 
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Math
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- [Number](https://en.wikipedia.org/wiki/Number)
+- [Numeral system](https://en.wikipedia.org/wiki/Numeral_system)
+- [Fractional part](https://en.wikipedia.org/wiki/Fractional_part)
+- [Arithmetic](https://en.wikipedia.org/wiki/Arithmetic)
+  - [Addition](https://en.wikipedia.org/wiki/Addition)
+  - [Subtraction](https://en.wikipedia.org/wiki/Subtraction)
+  - [Multiplication](https://en.wikipedia.org/wiki/Multiplication)
+  - [Division](<https://en.wikipedia.org/wiki/Division_(mathematics)>)
+  - [Exponentiation](https://en.wikipedia.org/wiki/Exponentiation)
+  - [Nth_root (root extraction)](https://en.wikipedia.org/wiki/Nth_root)
+  - [Logarithm](https://en.wikipedia.org/wiki/Logarithm)
+    - [Common logarithm](https://en.wikipedia.org/wiki/Common_logarithm)
+    - [Natural logarithm](https://en.wikipedia.org/wiki/Natural_logarithm)
+    - [Binary logarithm](https://en.wikipedia.org/wiki/Binary_logarithm)
+    - [e (mathematical constant or Euler's number)](https://en.wikipedia.org/wiki/E_%28mathematical_constant%29)
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
 
-```
+### Computer Science
+
+- [Bit](https://en.wikipedia.org/wiki/Bit)
+- [Bit numbering](https://en.wikipedia.org/wiki/Bit_numbering)
+- [Byte](https://en.wikipedia.org/wiki/Byte)
+- [Endianness](https://en.wikipedia.org/wiki/Endianness)
+- [Binary number](https://en.wikipedia.org/wiki/Binary_number)
+- [Bitwise operation](https://en.wikipedia.org/wiki/Bitwise_operation)
+- [Primitive data type](https://en.wikipedia.org/wiki/Primitive_data_type)
+
+---
+
+- [Infix notation](https://en.wikipedia.org/wiki/Infix_notation)
+- [Polish notation](https://en.wikipedia.org/wiki/Polish_notation)
+- [Reverse Polish notation](https://en.wikipedia.org/wiki/Reverse_Polish_notation)
+- [Shunting yard algorithm](https://en.wikipedia.org/wiki/Shunting_yard_algorithm)
+
+---
+
+- [American Standard Code for Information Interchange (ASCII)](https://en.wikipedia.org/wiki/ASCII)
+- [Unicode](https://en.wikipedia.org/wiki/Unicode)
+  - [Unicode block](https://en.wikipedia.org/wiki/Unicode_block)
+
+---
+
+- [IEEE 754](https://en.wikipedia.org/wiki/IEEE_754)
+  - [IEEE 754-1985](https://en.wikipedia.org/wiki/IEEE_754-1985)
+  - [IEEE 754-2008](https://en.wikipedia.org/wiki/IEEE_754-2008_revision)
+- [Floating point in modern computers](https://en.wikipedia.org/wiki/Floating-point_arithmetic#IEEE_754:_floating_point_in_modern_computers)
+- [Significand](https://en.wikipedia.org/wiki/Significand)
+- [Exponent bias](https://en.wikipedia.org/wiki/Exponent_bias)
+- [Sign bit](https://en.wikipedia.org/wiki/Sign_bit)
+- [Offset binary (bias)](https://en.wikipedia.org/wiki/Offset_binary)
+- [Subnormal number](https://en.wikipedia.org/wiki/Subnormal_number)
+- [Extended precision](https://en.wikipedia.org/wiki/Extended_precision)
+- [Scientific notation](https://en.wikipedia.org/wiki/Scientific_notation)
+- [Arbitrary-precision arithmetic](https://en.wikipedia.org/wiki/Arbitrary-precision_arithmetic)
+
+---
+
+## Copyright and License
+
+Copyright © 2026 [Mikhail Prugov](https://github.com/phenomenonus). Code released under the [MIT License](./LICENSE).
