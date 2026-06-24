@@ -10,11 +10,74 @@ _It does not claim to replace the standard or be the final authority. Its purpos
 
 ## Table of contents
 
+- [Development](#development)
+  - [Quick start](#quick-start)
+    - [Installation](#installation)
+    - [Running](#running)
+    - [Building](#building)
+    - [Formatting and Linting](#formatting-and-linting)
 - [Links](#links)
   - [Development](#development-1)
   - [Math](#math)
   - [Computer Science](#computer-science)
 - [Copyright and License](#copyright-and-license)
+
+---
+
+## Development
+
+Follow the conventions/practices/rules described in [this repository](https://github.com/phenomenonus/development-guidelines/blob/main/README.md).
+
+### Quick start
+
+Follow the steps below to start development quickly.
+
+---
+
+#### Installation
+
+Install the required packages using [npm](https://github.com/npm/cli) with the following command:
+
+```sh
+npm install
+```
+
+---
+
+#### Running
+
+Start the development server with the following command:
+
+```sh
+npm run dev
+```
+
+---
+
+#### Building
+
+Build the project with the following command:
+
+```sh
+npm run build
+```
+
+---
+
+#### Formatting and Linting
+
+You can format and lint the project after editing:
+
+```sh
+npm run format:check # Prettier check
+npm run format       # Format files
+npm run lint         # ESLint check
+npm run lint:fix     # ESLint autofix
+```
+
+These checks are also run automatically before each commit via Git hooks (Husky + lint-staged), ensuring that code is formatted and validated before it is committed.
+
+> The project uses [Prettier](https://prettier.io/) for code formatting and [ESLint](https://eslint.org/) for code quality checks.
 
 ---
 
