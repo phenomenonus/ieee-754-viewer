@@ -93,17 +93,17 @@ export default defineConfig([
             // 4. External packages (npm)
             ["^@?\\w"],
 
-            // 5. Internal: constants
-            ["^@/constants"],
-
-            // 6. Internal: utilities
+            // 5. Internal: utilities
             ["^@/utils"],
 
-            // 7. Internal: React contexts
-            ["^@/contexts"],
+            // 6. Internal: React store
+            ["^@/store"],
 
-            // 8. Internal: custom hooks
-            ["^@/hooks"],
+            // 7. i18n utilities
+            ["react-i18next"],
+
+            // 8. FluentUI components
+            ["@fluentui"],
 
             // 9. Internal: semantic components
             ["^@/components"],

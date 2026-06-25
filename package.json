@@ -32,8 +32,11 @@
   "author": "Mikhail Prugov <mikhail.prugov@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@fluentui/react": "^8.125.6",
+    "@fluentui/react-components": "^9.74.2",
     "react": "^19.2.7",
-    "react-dom": "^19.2.7"
+    "react-dom": "^19.2.7",
+    "zustand": "^5.0.14"
   },
   "devDependencies": {
     "@commitlint/cli": "^21.1.0",
