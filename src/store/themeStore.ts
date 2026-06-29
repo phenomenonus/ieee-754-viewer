@@ -21,7 +21,7 @@ export const useTheme = create<ThemeStore>()(
       resetThemeData: () => set(getThemeData()),
       setColorScheme: (colorSchemeName: string, mode: ThemeMode) =>
         set((state) => ({ ...state, [mode]: colorSchemeName })),
-      setThemeMode: (mode: ThemeMode) => set((state) => ({ ...state, mode })),
+      setThemeMode: (mode: ThemeMode) => set((state) => ({ ...state, userMode: mode })),
       setThemeModeAndSource: (mode: ThemeMode, source: ThemeModeSource) =>
         set((state) => ({ ...state, source, userMode: mode })),
       setThemeModeSource: (source: ThemeModeSource) => set((state) => ({ ...state, source })),

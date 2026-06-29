@@ -36,7 +36,7 @@ A language-region code is a two-letter language and two-letter region joined by 
 
 #### Namespaces
 
-1. Add/remove JSON files under locales/<lang-region>/<namespace>.json for each language.
+1. Add/remove JSON files under `i18n/locales/<lang-region>/<namespace>.json` for each language.
 2. Edit src/i18n/nsMap.ts
    - Import one language copy: `import myNs from "./locales/en-GB/myNs.json";`
    - Add/remove entry in NsMap:
@@ -44,7 +44,7 @@ A language-region code is a two-letter language and two-letter region joined by 
      export type NsMap = {
        common: typeof common;
        error: typeof error;
-       myNs: typeof myNs;
+       myNs: typeof myNs; // example of new namespace
      };
      ```
 3. Edit src/i18n/namespaces.ts
@@ -59,12 +59,12 @@ A language-region code is a two-letter language and two-letter region joined by 
 
 #### Languages
 
-1. Create/remove folder locales/<lang-region>/.
+1. Create/remove folder `i18n/locales/<lang-region>/`.
 2. Add/remove JSON files for every namespace inside that folder.
 3. Edit src/i18n/languages.ts
    - Update `supportedLngs`:
      ```ts
-     export const supportedLngs = [LanguageRegion.EN_GB, LanguageRegion.RU_RU, LanguageRegion.FR_FR] as const;
+     export const supportedLngs = [LanguageRegion.EN_GB, LanguageRegion.RU_RU] as const;
      ```
    - Optionally set `defaultLng`:
      ```ts
@@ -140,8 +140,10 @@ These checks are also run automatically before each commit via Git hooks (Husky 
   - [vite-plugin-svgr](https://github.com/pd4d10/vite-plugin-svgr) - Vite plugin to transform SVGs into React components
 - [TypeScript](https://www.typescriptlang.org/) – typed superset of JavaScript
 - [React](https://react.dev/) - front-end framework
+- [Zustand](https://zustand.docs.pmnd.rs/learn/getting-started/introduction) - A small, fast, and scalable bearbones state management solution
 - [react-i18next](https://react.i18next.com/) react-i18next is a powerful internationalization framework for React based on [i18next](https://www.i18next.com/)
 - [fluentui](https://github.com/microsoft/fluentui) - a collection of utilities, React components, and Web Components for building web applications
+- [griffel](https://griffel.js.org/) - runtime CSS-in-JS engine
 - [Eslint](https://eslint.org/) - tool for fixing, finding, formatting
 - [Prettier](https://prettier.io/) - formatter
 - [commitlint](https://commitlint.js.org/) - Lint commit messages

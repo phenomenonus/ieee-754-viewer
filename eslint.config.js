@@ -84,32 +84,32 @@ export default defineConfig([
             // 1. Side effect imports (e.g. polyfills, CSS)
             ["^\\u0000"],
 
-            // 2. Node.js built-in modules
-            ["^node:"],
-
-            // 3. React core packages
+            // 2. React core packages
             ["react", "react-dom"],
 
-            // 4. External packages (npm)
-            ["^@?\\w"],
-
-            // 5. Internal: utilities
-            ["^@/utils"],
-
-            // 6. Internal: React store
-            ["^@/store"],
-
-            // 7. i18n utilities
+            // 3. i18n utilities
             ["react-i18next"],
 
-            // 8. FluentUI components
+            // 4. i18n utilities
+            ["@/i18n"],
+
+            // 5. External packages (npm)
+            ["^@?\\w"],
+
+            // 6. FluentUI components
             ["@fluentui"],
 
-            // 9. Internal: semantic components
+            // 7. Internal: semantic components
             ["^@/components"],
 
-            // 10. Internal: UI components
+            // 8. Internal: UI components
             ["^@/ui"],
+
+            // 9. Internal: utilities
+            ["^@/utils"],
+
+            // 10. Internal: React store
+            ["^@/store"],
 
             // 11. Internal: Theme data
             ["^@/theme"],

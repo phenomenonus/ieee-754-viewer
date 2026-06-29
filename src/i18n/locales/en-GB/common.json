@@ -1,92 +1,53 @@
 {
-  "app": {
-    "header": "IEEE 754 standard visualization.",
+  "common": {
+    "close": "Close",
+    "info": "Information"
+  },
+  "about": {
+    "title": "About",
     "descrption": "It does not claim to replace the standard or be the final authority. Its purpose is to facilitate understanding of the standard."
   },
-  "modal": {
-    "btn": {
-      "close": {
-        "hint": "Close"
-      }
-    }
+  "help": {
+    "title": "Help"
+  },
+  "navBar": {
+    "title": "IEEE 754 standard visualization",
+    "settings": "Settings"
+  },
+  "selectLanguage": {
+    "aria": "Select language",
+    "label": "Select a language from the list of available languages. See also <0>Language tags and codes</0>."
   },
   "settings": {
-    "header": "Settings",
-    "list": {
-      "theme": "Theme",
-      "language": "Language"
-    }
+    "title": "Settings",
+    "help": "Help"
   },
   "theme": {
-    "btn": {
-      "settings": {
-        "text": "Advanced theme settings"
-      },
-      "light": {
-        "text": "Light",
-        "hint": "Light theme (user mode)"
-      },
-      "dark": {
-        "text": "Dark",
-        "hint": "Dark theme (user mode)"
-      },
-      "system": {
-        "text": "System"
-      },
-      "user": {
-        "text": "User"
-      },
-      "lightScheme": {
-        "text": "Light",
-        "hint": "Light color schemes"
-      },
-      "darkScheme": {
-        "text": "Dark",
-        "hint": "Dark color schemes"
-      },
-      "reset": {
-        "text": "Reset Settings",
-        "hint": "Reset theme settings"
-      }
-    },
-    "section": {
-      "prefer": {
-        "hint": "Prefered theme mode"
-      },
-      "settings": {
-        "text": "Advanced theme settings"
-      },
-      "source": {
-        "text": "Source",
-        "hint": "A source manipulating the theme mode"
-      },
-      "mode": {
-        "text": "Mode",
-        "hint": "Active theme mode for current source"
-      },
-      "scheme": {
-        "text": "Color schemes",
-        "hint": "Select a color scheme for dark and light themes"
-      }
-    },
+    "btn": "Theme settings",
+    "title": "Theme settings",
+    "btnSystem": "System",
+    "btnSystemTitle": "System theme mode source",
+    "btnUser": "User",
+    "btnUserTitle": "User theme mode source",
+    "btnLight": "Light",
+    "btnLightTitle": "Light theme mode (User theme mode source)",
+    "btnDark": "Dark",
+    "btnDarkTitle": "Dark theme mode (User theme mode source)",
+    "btnReset": "Reset settings",
+    "btnResetTitle": "Reset theme settings",
+    "lightScheme": "Light",
+    "lightSchemeTitle": "Light color schemes",
+    "darkScheme": "Dark",
+    "darkSchemeTitle": "Dark color schemes",
+    "sourceInfoLabel": "A source manipulating the theme mode.",
+    "modeInfoLabel": "When the source is set to User, the theme mode is controlled by the user. When the source is set to System, the theme mode is taken from the device’s system setting. If it can’t be retrieved, Dark mode is used.",
+    "schemeInfoLabel": "For each theme mode, you can choose its own color scheme from the available list.",
     "msg": {
       "systemNotDefined": "System mode is not defined",
       "systemUseDark": "System uses dark mode",
       "systemUseLight": "System uses light mode",
       "userUseDark": "User uses dark mode",
       "userUseLight": "User uses light mode"
-    }
-  },
-  "help": {
-    "btn": {
-      "help": {
-        "text": "Help"
-      }
-    },
-    "section": {
-      "help": {
-        "text": "Help"
-      }
     }
   }
 }

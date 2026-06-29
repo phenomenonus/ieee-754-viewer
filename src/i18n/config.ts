@@ -32,11 +32,11 @@ export const config: InitOptions = {
     escapeValue: false, // not needed for react as it escapes by default
   },
 
-  // Specifies the default language (locale) used
-  // when a user visits our site for the first time.
-  // We use English here, but feel free to use
-  // whichever locale you want.
-  lng: defaultLng,
+  // Forces the active language on every initialization.
+  // This overrides language detection and any persisted
+  // user preference. In most cases, prefer `fallbackLng`
+  // and omit this option.
+  // lng: defaultLng,
 
   load: "currentOnly",
 
