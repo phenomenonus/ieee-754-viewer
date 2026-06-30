@@ -2,7 +2,6 @@ import React from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { Stack } from "@fluentui/react";
 import {
   Button,
   type ButtonProps,
@@ -12,6 +11,7 @@ import {
   DrawerHeader,
   DrawerHeaderTitle,
   makeStyles,
+  mergeClasses,
   OverlayDrawer,
   useRestoreFocusSource,
   useRestoreFocusTarget,
@@ -28,18 +28,23 @@ import IEEE754SVG from "@/assets/icons/ieee754.svg?react";
 import QuestionSVG from "@/assets/icons/question.svg?react";
 
 const useClasses = makeStyles({
-  btn: {
+  buttonBase: {
+    display: "flex",
     justifyContent: "flex-start",
+    maxWidth: "100%",
+    minWidth: "auto",
     padding: "0",
+    width: "max-content",
+    wordWrap: "break-word",
   },
   divider: {
     margin: "1rem 0",
   },
-  footer: {
+  flexEnd: {
     justifyContent: "end",
   },
-  stack: {
-    gap: "1rem",
+  mb: {
+    marginBottom: "0.75rem",
   },
 });
 
@@ -80,31 +85,39 @@ export const Settings: FC<ButtonProps> = (props) => {
 
           <Divider className={className.divider} />
 
-          <Help appearance="transparent" className={className.btn} icon={<QuestionSVG />} title={t("settings.help")}>
+          <Help
+            appearance="transparent"
+            className={className.buttonBase}
+            icon={<QuestionSVG />}
+            title={t("settings.help")}
+          >
             {t("settings.help")}
           </Help>
 
           <Divider className={className.divider} />
 
-          <Stack className={className.stack}>
-            <About appearance="transparent" className={className.btn} icon={<IEEE754SVG />} title={t("about.title")}>
-              {t("about.title")}
-            </About>
+          <About
+            appearance="transparent"
+            className={mergeClasses(className.buttonBase, className.mb)}
+            icon={<IEEE754SVG />}
+            title={t("about.title")}
+          >
+            {t("about.title")}
+          </About>
 
-            <Button
-              appearance="transparent"
-              as="a"
-              className={className.btn}
-              href="https://github.com/phenomenonus/ieee-754-viewer"
-              icon={<GithubSVG />}
-              target="_blank"
-            >
-              GitHub
-            </Button>
-          </Stack>
+          <Button
+            appearance="transparent"
+            as="a"
+            className={mergeClasses(className.buttonBase, className.mb)}
+            href="https://github.com/phenomenonus/ieee-754-viewer"
+            icon={<GithubSVG />}
+            target="_blank"
+          >
+            GitHub
+          </Button>
         </DrawerBody>
 
-        <DrawerFooter className={className.footer}>
+        <DrawerFooter className={className.flexEnd}>
           <Button
             {...restoreFocusTargetAttributes}
             appearance="secondary"

@@ -2,7 +2,6 @@ import React from "react";
 
 import { useTranslation } from "react-i18next";
 
-import { Stack } from "@fluentui/react";
 import {
   Button,
   type ButtonProps,
@@ -38,34 +37,38 @@ import SunSVG from "@/assets/icons/sun.svg?react";
 const useClasses = makeStyles({
   button: {
     justifyContent: "start",
+    width: "100%",
   },
   divider: {
     margin: "1rem 0",
   },
   dropdown: {
     minWidth: "auto",
+    width: "100%",
   },
-  footer: {
+  flex: {
+    columnGap: "4px",
+    display: "flex",
+    flexWrap: "nowrap",
+  },
+  flexBasis: {
+    flexBasis: "stretch",
+    flexGrow: 1,
+    overflow: "hidden",
+  },
+  flexEnd: {
     justifyContent: "end",
-  },
-  icon: {
-    margin: "0 2px",
-    verticalAlign: "middle",
   },
   label: {
     display: "block",
-    margin: "0.25rem",
+    margin: "0 0.25rem 0.5rem",
+  },
+  mb: {
+    marginBottom: "0.75rem",
   },
   option: {
     overflow: "hidden",
     overflowWrap: "break-word",
-  },
-  stackBasis: {
-    flexBasis: "stretch",
-    overflow: "hidden",
-  },
-  stackGroup: {
-    rowGap: "0.5rem",
   },
   textEllipsis: {
     overflowX: "hidden",
@@ -93,8 +96,9 @@ export const ThemeSettings: FC<ThemeSettingsProps & ButtonProps> = ({
   const className = useClasses();
   const lightId = `${React.useId()}-select`,
     darkId = `${React.useId()}-select`,
-    sourceId = `${React.useId()}-source`,
-    modeId = `${React.useId()}-mode`;
+    modeName = `mode`,
+    schemeName = `scheme`,
+    sourceName = `source`;
 
   const userModeMsg = userMode === THEME_MODE.DARK ? t("theme.msg.userUseDark") : t("theme.msg.userUseLight");
 
@@ -125,81 +129,80 @@ export const ThemeSettings: FC<ThemeSettingsProps & ButtonProps> = ({
           <InfoLabel
             aria-label={t("common.info")}
             className={className.label}
-            htmlFor={sourceId}
+            htmlFor={sourceName}
             info={t("theme.sourceInfoLabel")}
             size="large"
           />
-          <Stack className={className.stackGroup} id={sourceId} role="group">
-            <Button
-              appearance={isSystemSource ? "primary" : undefined}
-              className={className.button}
-              disabled={noSystemMode}
-              icon={noSystemMode ? <DesktopRestrictSVG /> : <DesktopSVG />}
-              onClick={() => setThemeModeSource(THEME_MODE_SOURCE.SYSTEM)}
-              title={`${t("theme.btnSystemTitle")} (${systemModeMessage})`}
-            >
-              <span className={className.textEllipsis}>{t("theme.btnSystem")}</span>
-            </Button>
-            <Button
-              appearance={!isSystemSource ? "primary" : undefined}
-              className={className.button}
-              icon={<PersonSVG />}
-              onClick={() => setThemeModeSource(THEME_MODE_SOURCE.USER)}
-              title={`${t("theme.btnUserTitle")} (${userModeMsg})`}
-            >
-              <span className={className.textEllipsis}>{t("theme.btnUser")}</span>
-            </Button>
-          </Stack>
+          <Button
+            appearance={isSystemSource ? "primary" : undefined}
+            className={mergeClasses(className.button, className.mb)}
+            disabled={noSystemMode}
+            icon={noSystemMode ? <DesktopRestrictSVG /> : <DesktopSVG />}
+            name={sourceName}
+            onClick={() => setThemeModeSource(THEME_MODE_SOURCE.SYSTEM)}
+            title={`${t("theme.btnSystemTitle")} (${systemModeMessage})`}
+          >
+            <span className={className.textEllipsis}>{t("theme.btnSystem")}</span>
+          </Button>
+          <Button
+            appearance={!isSystemSource ? "primary" : undefined}
+            className={className.button}
+            icon={<PersonSVG />}
+            name={sourceName}
+            onClick={() => setThemeModeSource(THEME_MODE_SOURCE.USER)}
+            title={`${t("theme.btnUserTitle")} (${userModeMsg})`}
+          >
+            <span className={className.textEllipsis}>{t("theme.btnUser")}</span>
+          </Button>
 
           <Divider className={className.divider} />
 
           <InfoLabel
             aria-label={t("common.info")}
             className={className.label}
-            htmlFor={modeId}
+            htmlFor={modeName}
             info={t("theme.modeInfoLabel")}
             size="large"
           />
-          <Stack className={className.stackGroup} id={modeId} role="group">
-            <Button
-              appearance={!isDarkMode ? "primary" : undefined}
-              className={className.button}
-              disabled={isSystemSource}
-              icon={<SunSVG />}
-              onClick={() => setThemeMode(THEME_MODE.LIGHT)}
-              title={t("theme.btnLightTitle")}
-            >
-              <span className={className.textEllipsis}>{t("theme.btnLight")}</span>
-            </Button>
-            <Button
-              appearance={isDarkMode ? "primary" : undefined}
-              className={className.button}
-              disabled={isSystemSource}
-              icon={<MoonSVG />}
-              onClick={() => setThemeMode(THEME_MODE.DARK)}
-              title={t("theme.btnDarkTitle")}
-            >
-              <span className={className.textEllipsis}>{t("theme.btnDark")}</span>
-            </Button>
-          </Stack>
+          <Button
+            appearance={!isDarkMode ? "primary" : undefined}
+            className={mergeClasses(className.button, className.mb)}
+            disabled={isSystemSource}
+            icon={<SunSVG />}
+            name={modeName}
+            onClick={() => setThemeMode(THEME_MODE.LIGHT)}
+            title={t("theme.btnLightTitle")}
+          >
+            <span className={className.textEllipsis}>{t("theme.btnLight")}</span>
+          </Button>
+          <Button
+            appearance={isDarkMode ? "primary" : undefined}
+            className={className.button}
+            disabled={isSystemSource}
+            icon={<MoonSVG />}
+            name={modeName}
+            onClick={() => setThemeMode(THEME_MODE.DARK)}
+            title={t("theme.btnDarkTitle")}
+          >
+            <span className={className.textEllipsis}>{t("theme.btnDark")}</span>
+          </Button>
 
           <Divider className={className.divider} />
 
           <InfoLabel
             aria-label={t("common.info")}
             className={className.label}
-            htmlFor={modeId}
+            htmlFor={schemeName}
             info={t("theme.schemeInfoLabel")}
             size="large"
           />
-          <Stack grow horizontal role="group">
-            <Stack className={className.stackBasis} grow>
+          <div className={className.flex} role="group">
+            <div className={className.flexBasis}>
               <label
                 className={mergeClasses(className.label, className.textEllipsis)}
                 htmlFor={lightId}
                 title={t("theme.lightSchemeTitle")}
               >
-                <SunSVG className={className.icon} />
                 {t("theme.lightScheme")}
               </label>
               <Dropdown
@@ -210,6 +213,7 @@ export const ThemeSettings: FC<ThemeSettingsProps & ButtonProps> = ({
                 defaultValue={light}
                 disabled={isSystemSource && isDarkMode}
                 id={lightId}
+                name={schemeName}
                 onOptionSelect={(_, data) => setColorScheme(data.optionText!, THEME_MODE.LIGHT)}
               >
                 {colorSchemes[THEME_MODE.LIGHT].map((scheme) => (
@@ -218,15 +222,14 @@ export const ThemeSettings: FC<ThemeSettingsProps & ButtonProps> = ({
                   </Option>
                 ))}
               </Dropdown>
-            </Stack>
+            </div>
 
-            <Stack className={className.stackBasis} grow>
+            <div className={className.flexBasis}>
               <label
                 className={mergeClasses(className.label, className.textEllipsis)}
                 htmlFor={darkId}
                 title={t("theme.darkSchemeTitle")}
               >
-                <MoonSVG className={className.icon} />
                 {t("theme.darkScheme")}
               </label>
               <Dropdown
@@ -237,6 +240,7 @@ export const ThemeSettings: FC<ThemeSettingsProps & ButtonProps> = ({
                 defaultValue={dark}
                 disabled={isSystemSource && !isDarkMode}
                 id={darkId}
+                name={schemeName}
                 onOptionSelect={(_, data) => setColorScheme(data.optionText!, THEME_MODE.DARK)}
               >
                 {colorSchemes[THEME_MODE.DARK].map((scheme) => (
@@ -245,19 +249,19 @@ export const ThemeSettings: FC<ThemeSettingsProps & ButtonProps> = ({
                   </Option>
                 ))}
               </Dropdown>
-            </Stack>
-          </Stack>
+            </div>
+          </div>
 
           <Divider className={className.divider} />
 
-          <Stack grow horizontal horizontalAlign="end">
+          <div className={mergeClasses(className.flex, className.flexEnd, className.mb)}>
             <Button appearance="transparent" onClick={resetThemeData} title={t("theme.btnReset")}>
               {t("theme.btnReset")}
             </Button>
-          </Stack>
+          </div>
         </DrawerBody>
 
-        <DrawerFooter className={className.footer}>
+        <DrawerFooter className={className.flexEnd}>
           <Button
             {...restoreFocusTargetAttributes}
             appearance="secondary"

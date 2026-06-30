@@ -4,7 +4,6 @@ import { Trans, useTranslation } from "react-i18next";
 
 import { supportedLngs } from "@/i18n";
 
-import { type IStackProps, Stack } from "@fluentui/react";
 import { Dropdown, InfoLabel, Link, makeStyles, Option } from "@fluentui/react-components";
 
 import { type LanguageRegionValue, localeDisplayNameByCode } from "@/utils";
@@ -17,6 +16,11 @@ const useClasses = makeStyles({
     minWidth: "auto",
     width: "100%",
   },
+  flex: {
+    alignItems: "center",
+    display: "flex",
+    flexWrap: "nowrap",
+  },
   option: {
     overflow: "hidden",
     overflowWrap: "break-word",
@@ -28,7 +32,7 @@ const useClasses = makeStyles({
   },
 });
 
-export type SelectLanguageProps = IStackProps;
+export type SelectLanguageProps = React.HTMLAttributes<HTMLDivElement>;
 
 export const SelectLanguage: FC<SelectLanguageProps> = (props) => {
   const labelId = React.useId();
@@ -37,7 +41,7 @@ export const SelectLanguage: FC<SelectLanguageProps> = (props) => {
   const currentLanguage = localeDisplayNameByCode[i18n.language as LanguageRegionValue];
 
   return (
-    <Stack grow horizontal verticalAlign="center" {...props}>
+    <div className={className.flex} {...props}>
       <Dropdown
         aria-label={t("selectLanguage.aria")}
         button={<span className={className.textEllipsis}>{currentLanguage}</span>}
@@ -70,6 +74,6 @@ export const SelectLanguage: FC<SelectLanguageProps> = (props) => {
         }
         size="large"
       />
-    </Stack>
+    </div>
   );
 };
