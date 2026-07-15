@@ -61,7 +61,7 @@ const useClasses = makeStyles({
   },
   label: {
     display: "block",
-    margin: "0 0.25rem 0.5rem",
+    marginBottom: "0.5rem",
   },
   mb: {
     marginBottom: "0.75rem",

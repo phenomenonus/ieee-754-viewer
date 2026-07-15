@@ -111,25 +111,28 @@ export default defineConfig([
             // 10. Internal: React store
             ["^@/store"],
 
-            // 11. Internal: Theme data
+            // 11. Internal: IEEE 754
+            ["^@/ieee754"],
+
+            // 12. Internal: Theme data
             ["^@/theme"],
 
-            // 12. Internal: TypeScript types
+            // 13. Internal: TypeScript types
             ["^@/types"],
 
-            // 13. Internal: static assets
+            // 14. Internal: static assets
             ["^@/assets"],
 
-            // 14. Other internal modules (fallback)
+            // 15. Other internal modules (fallback)
             ["^@/"],
 
-            // 15. Parent directory imports (../)
+            // 16. Parent directory imports (../)
             ["^\\.\\./"],
 
-            // 16. Same-folder imports (./)
+            // 17. Same-folder imports (./)
             ["^\\./"],
 
-            // 17. Index file imports
+            // 18. Index file imports
             ["^\\./?$"],
           ],
         },

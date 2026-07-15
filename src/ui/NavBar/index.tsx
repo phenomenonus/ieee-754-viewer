@@ -13,13 +13,13 @@ import DotsVSVG from "@/assets/icons/dots-v.svg?react";
 const useClasses = makeStyles({
   flex: {
     alignItems: "center",
+    ...xl({ padding: "1rem 0" }),
+    columnGap: "4px",
     display: "flex",
     flexWrap: "nowrap",
     margin: "auto",
     maxWidth: "1280px",
-    padding: "0.75rem 0.5rem",
-    ...xl({ padding: "1rem 0" }),
-    columnGap: "4px",
+    padding: "0.75rem 0.325rem",
   },
   title: {
     flexGrow: 1,

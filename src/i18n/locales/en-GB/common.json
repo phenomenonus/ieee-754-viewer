@@ -5,10 +5,86 @@
   },
   "about": {
     "title": "About",
-    "descrption": "It does not claim to replace the standard or be the final authority. Its purpose is to facilitate understanding of the standard."
+    "descrption": "The app does not claim to replace the standard or be the final authority. Its purpose is to facilitate understanding of the standard."
+  },
+  "addFormatButton": {
+    "infoLabel": "The IEEE 754 standard includes 5 <0>basic formats</0>:",
+    "button": "Add format",
+    "title": "Basic formats",
+    "binary32": "Single (binary32)",
+    "binary64": "Double (binary64)",
+    "binary128": "Quadruple (binary128)",
+    "decimal64": "Decimal64",
+    "decimal128": "Decimal128"
+  },
+  "bit": {
+    "index": "Bit index relative to all fields",
+    "indexInByte": "Bit index in byte",
+    "ordinal": "Bit ordinal number relative to all fields",
+    "ordinalInByte": "Bit ordinal number in byte"
+  },
+  "fieldsInfo": {
+    "numberOfBits": "Number of bits in the field",
+    "lsb": "Least significant bit",
+    "msb": "Most significant bit",
+    "sign": "Sign bit",
+    "exponent": "Exponent field",
+    "fraction": "Fraction field"
+  },
+  "formatPreviewer": {
+    "infoLabel": "Click on the <0>bits</0> to toggle their <1>logical state</1>. You can also customize their display using the button on the right.",
+    "cardTitle": "There is format data in different representations and some additonal information.",
+    "binary": "Binary representation",
+    "decimal": "Decimal representation",
+    "hex": "Hexadecimal representation",
+    "index": "Byte index",
+    "ordinal": "Byte ordinal number",
+    "endianness": "System Endianness",
+    "remove": "Remove",
+    "inputLabel": "Decimal number",
+    "inputFieldWithLabel": "<0>Decimal</0> input values and computed results are handled by JavaScript. Numeric conversions between representations are performed according to <1>the ECMAScript specification</1> and use <2>IEEE 754-2019</2> for floating-point formats and rounding rules, so value classification, numeric types, and rounding behavior depend on how the standard’s rules are implemented."
+  },
+  "floatClass": {
+    "-Infinity": "Negative Infinity",
+    "-Normal": "Negative Normal",
+    "-Subnormal": "Negative Subnormal",
+    "-0": "Negative Zero",
+    "Infinity": "Infinity",
+    "Normal": "Normal",
+    "Subnormal": "Subnormal",
+    "0": "Zero",
+    "qNaN": "Quiet NaN",
+    "sNaN": "Signaling NaN"
   },
   "help": {
     "title": "Help"
+  },
+  "ieee": {
+    "format": {
+      "binary32": "Single-precision floating-point format",
+      "binary64": "Double-precision floating-point format",
+      "binary128": "Quadruple-precision floating-point format",
+      "decimal64": "Decimal64 floating-point format",
+      "decimal128": "Decimal128 floating-point format"
+    },
+    "specialValues": {
+      "example1": "1",
+      "example2": "0.1 + 0.2",
+      "positiveZero": "+0",
+      "negativeZero": "-0",
+      "positiveInfinity": "+Infinity",
+      "negativeInfinity": "-Infinity",
+      "qNaN": "quiet NaN",
+      "sNaN": "signaling NaN",
+      "maxNormal": "max normal",
+      "minPositiveNormal": "min positive normal",
+      "maxPositiveSubnormal": "max positive subnormal",
+      "minPositiveSubnormal": "min positive subnormal",
+      "maxNegativeNormal": "max negative normal",
+      "minNegativeNormal": "min negative normal",
+      "maxNegativeSubnormal": "max negative subnormal",
+      "minNegativeSubnormal": "min negative subnormal"
+    }
   },
   "navBar": {
     "title": "IEEE 754 standard visualization",
@@ -21,6 +97,9 @@
   "settings": {
     "title": "Settings",
     "help": "Help"
+  },
+  "specialItems": {
+    "label": "Click on the button with an example or <0>special value</0> to see the result in different <1>representations</1>."
   },
   "theme": {
     "btn": "Theme settings",
@@ -48,6 +127,44 @@
       "systemUseLight": "System uses light mode",
       "userUseDark": "User uses dark mode",
       "userUseLight": "User uses light mode"
+    }
+  },
+  "toggleEndianness": {
+    "infoLabel": "Toggle current number <0>endianness</0>. By default is used system endianness."
+  },
+  "viewOptionsButton": {
+    "title": "Bit visualization settings",
+    "appearance": {
+      "title": "Appearance",
+      "colored": "Colored fields",
+      "outline": "Monochrome",
+      "subtle": "Text"
+    },
+    "size": {
+      "title": "Size",
+      "large": "Large",
+      "medium": "Medium",
+      "small": "Small"
+    },
+    "bitLabel": {
+      "title": "Bit Numbering",
+      "index": "Index",
+      "indexInByte": "Index in byte",
+      "none": "Hide",
+      "ordinal": "Ordinal number",
+      "ordinalInByte": "Ordinal number in byte"
+    },
+    "byteLabel": {
+      "title": "Byte Numbering",
+      "index": "Index",
+      "none": "Hide",
+      "ordinal": "Ordinal number"
+    },
+    "view": {
+      "title": "Bytes display",
+      "splittedBytesInRow": "Splitted bytes in a row",
+      "bytesInColumn": "Bytes in a column",
+      "bytesInRow": "Bytes in a row"
     }
   }
 }

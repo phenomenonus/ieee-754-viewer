@@ -1,6 +1,6 @@
 import { makeStyles } from "@fluentui/react-components";
 
-import { NavBar } from "@/ui";
+import { IEEEWrapper, NavBar } from "@/ui";
 
 import { xl } from "@/utils";
 
@@ -10,7 +10,7 @@ const useClasses = makeStyles({
   root: {
     margin: "auto",
     maxWidth: "1280px",
-    padding: "0 0.5rem",
+    padding: "0 0.325rem",
     ...xl({ padding: "0" }),
   },
 });
@@ -21,7 +21,9 @@ export const App: FC = () => {
   return (
     <>
       <NavBar />
-      <div className={className.root}>Content</div>
+      <div className={className.root}>
+        <IEEEWrapper />
+      </div>
     </>
   );
 };
