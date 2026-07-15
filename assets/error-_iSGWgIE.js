@@ -1,0 +1,1 @@
+var e=`Something went wrong!`,t={wrong:e};export{t as default,e as wrong};

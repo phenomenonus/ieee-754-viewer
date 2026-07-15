@@ -1,0 +1,1 @@
+var e=`Что-то пошло не так!`,t={wrong:e};export{t as default,e as wrong};
