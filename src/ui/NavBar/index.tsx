@@ -6,14 +6,14 @@ import { makeStyles, Title3 } from "@fluentui/react-components";
 
 import { Settings } from "@/ui";
 
-import { xl } from "@/utils";
+import { lg } from "@/utils";
 
 import DotsVSVG from "@/assets/icons/dots-v.svg?react";
 
 const useClasses = makeStyles({
   flex: {
     alignItems: "center",
-    ...xl({ padding: "1rem 0" }),
+    ...lg({ padding: "1rem 0" }),
     columnGap: "4px",
     display: "flex",
     flexWrap: "nowrap",

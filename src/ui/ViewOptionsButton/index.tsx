@@ -60,7 +60,7 @@ export const ViewOptionsButton: FC<ViewOptionsButtonProps> = ({ changeViewOption
   const viewViewOptions: BitsView[] = [BitsView.BytesInRow, BitsView.SplittedBytesInRow, BitsView.BytesInColumn];
 
   return (
-    <Menu checkedValues={viewOptions} onCheckedValueChange={onChange}>
+    <Menu checkedValues={viewOptions} onCheckedValueChange={onChange} positioning={{ autoSize: true }}>
       <MenuTrigger disableButtonEnhancement>
         <Tooltip content={t("viewOptionsButton.title")} relationship="label">
           <MenuButton icon={<TuningSVG />} />

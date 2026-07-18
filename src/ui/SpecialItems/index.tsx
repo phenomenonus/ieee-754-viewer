@@ -4,7 +4,10 @@ import { Trans, useTranslation } from "react-i18next";
 
 import { Button, InfoLabel, Link, makeStyles } from "@fluentui/react-components";
 
-import { ByteLength, type Data, type FormatItem, Representation } from "@/ieee754";
+import type { IEEEStore } from "@/store";
+
+import { ByteLength, type Data, type FormatItem } from "@/ieee754";
+import { Representation } from "@/ieee754/Representation";
 
 import type { FC } from "@/types";
 
@@ -23,84 +26,85 @@ const useClasses = makeStyles({
 
 type SpecialItem = {
   name: string;
-  [ByteLength.Single]: number;
-  [ByteLength.Double]: bigint;
+  [ByteLength.Single]: string;
+  [ByteLength.Double]: string;
 };
 
 export type SpecialItemsProps = {
   formatItem: FormatItem;
-  updateDataValue: (newData: Data) => void;
+  setFormatItemData: IEEEStore["setFormatItemData"];
+  updateDataValue: (newData?: Data) => void;
 };
 
-export const SpecialItems: FC<SpecialItemsProps> = ({ formatItem, updateDataValue }) => {
+export const SpecialItems: FC<SpecialItemsProps> = ({ formatItem, setFormatItemData, updateDataValue }) => {
   const labelId = React.useId();
   const { t } = useTranslation("common");
   const className = useClasses();
 
   const specialItemList: SpecialItem[] = [
     {
-      [ByteLength.Double]: 0x3ff0000000000000n,
-      [ByteLength.Single]: 0x3f800000,
+      [ByteLength.Double]: "3ff0000000000000",
+      [ByteLength.Single]: "3f800000",
       name: "1",
     },
     {
-      [ByteLength.Double]: 0x3fd3333333333334n,
-      [ByteLength.Single]: 0x3e99999a,
+      [ByteLength.Double]: "3fd3333333333334",
+      [ByteLength.Single]: "3e99999a",
       name: "0.1 + 0.2",
     },
     {
-      [ByteLength.Double]: 0x0000000000000000n,
-      [ByteLength.Single]: 0x00000000,
+      [ByteLength.Double]: "0000000000000000",
+      [ByteLength.Single]: "00000000",
       name: "0",
     },
     {
-      [ByteLength.Double]: 0x8000000000000000n,
-      [ByteLength.Single]: 0x80000000,
+      [ByteLength.Double]: "8000000000000000",
+      [ByteLength.Single]: "80000000",
       name: "-0",
     },
     {
-      [ByteLength.Double]: 0x7ff0000000000000n,
-      [ByteLength.Single]: 0x7f800000,
+      [ByteLength.Double]: "7ff0000000000000",
+      [ByteLength.Single]: "7f800000",
       name: "Infinity",
     },
     {
-      [ByteLength.Double]: 0xfff0000000000000n,
-      [ByteLength.Single]: 0xff800000,
+      [ByteLength.Double]: "fff0000000000000",
+      [ByteLength.Single]: "ff800000",
       name: "-Infinity",
     },
     {
-      [ByteLength.Double]: 0x7ff8000000000000n,
-      [ByteLength.Single]: 0x7fc00000,
+      [ByteLength.Double]: "7ff8000000000000",
+      [ByteLength.Single]: "7fc00000",
       name: "qNaN",
     },
     {
-      [ByteLength.Double]: 0x7ff4000000000000n,
-      [ByteLength.Single]: 0x7fa00000,
+      [ByteLength.Double]: "7ff4000000000000",
+      [ByteLength.Single]: "7fa00000",
       name: "sNaN",
     },
     {
-      [ByteLength.Double]: 0x4340000000000000n, // 2^53
-      [ByteLength.Single]: 0x4b800000, // 2^24
+      [ByteLength.Double]: "4340000000000000",
+      [ByteLength.Single]: "4b800000",
       name: "Max Integer",
     },
     {
-      [ByteLength.Double]: 0x7fefffffffffffffn,
-      [ByteLength.Single]: 0x7f7fffff,
+      [ByteLength.Double]: "7fefffffffffffff",
+      [ByteLength.Single]: "7f7fffff",
       name: "Max Normal",
     },
     {
-      [ByteLength.Double]: 0x0010000000000000n,
-      [ByteLength.Single]: 0x00800000,
+      [ByteLength.Double]: "0010000000000000",
+      [ByteLength.Single]: "00800000",
       name: "Min Normal",
     },
     {
-      [ByteLength.Double]: 0x000fffffffffffffn,
-      [ByteLength.Single]: 0x007fffff,
+      [ByteLength.Double]: "000fffffffffffff",
+      [ByteLength.Single]: "007fffff",
       name: "Max Subnormal",
     },
     {
-      [ByteLength.Double]: 0x0000000000000001n,
-      [ByteLength.Single]: 0x00000001,
+      [ByteLength.Double]: "0000000000000001",
+      [ByteLength.Single]: "00000001",
       name: "Min Subnormal",
     },
   ];
@@ -108,23 +112,19 @@ export const SpecialItems: FC<SpecialItemsProps> = ({ formatItem, updateDataValu
   // Typescript requires correct types
   const handleClick = React.useCallback(
     (item: SpecialItem) => {
-      if (formatItem.data.byteLength === ByteLength.Single) {
-        updateDataValue({
+      setFormatItemData(
+        formatItem.id,
+        {
           ...formatItem.data,
           isLittleEndian: true,
-          representation: Representation.HexNumber,
+          representation: Representation.HexBitPattern,
           value: item[formatItem.data.byteLength],
-        });
-      } else {
-        updateDataValue({
-          ...formatItem.data,
-          isLittleEndian: true,
-          representation: Representation.HexNumber,
-          value: item[formatItem.data.byteLength],
-        });
-      }
+        },
+        formatItem.data.isLittleEndian,
+      );
+      updateDataValue();
     },
-    [formatItem.data, updateDataValue],
+    [formatItem.data, formatItem.id, setFormatItemData, updateDataValue],
   );
 
   return (

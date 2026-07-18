@@ -9,8 +9,10 @@ export const IEEEWrapper: FC = () => {
     addFormatItem,
     changeViewOption,
     deleteFormatItem,
-    getFormatItemDataValue: getFormatDataValue,
+    endianness,
+    getFormatItemDataValue,
     list,
+    setEnableSpecialValues,
     setFormatItemData,
     setFormatItemDataEndianness,
   } = useIEEE();
@@ -23,10 +25,12 @@ export const IEEEWrapper: FC = () => {
           changeViewOption={changeViewOption}
           deleteFormatItem={deleteFormatItem}
           formatItem={formatData}
-          getFormatItemDataValue={getFormatDataValue}
+          getFormatItemDataValue={getFormatItemDataValue}
           key={formatData.id}
+          setEnableSpecialValues={setEnableSpecialValues}
           setFormatItemData={setFormatItemData}
           setFormatItemDataEndianness={setFormatItemDataEndianness}
+          systemEndianness={endianness}
         />
       ))}
     </>

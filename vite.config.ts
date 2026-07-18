@@ -18,6 +18,7 @@ export default defineConfig({
               test: /node_modules[\\/]react/,
             },
             {
+              maxSize: 500_000,
               name: "ui",
               priority: 15,
               test: /node_modules[\\/]@fluentui/,

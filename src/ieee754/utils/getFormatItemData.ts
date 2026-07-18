@@ -1,76 +1,61 @@
-import type { FormatParams } from "../BasicFormatParams";
 import { ByteLength } from "../Byte";
-import {
-  type Data,
-  type FormatDataBitString,
-  type FormatDataHexNumber,
-  type FormatDataHexString,
-  type FormatDataNumber,
-  Representation,
-} from "../FormatData";
+import { type Data } from "../FormatData";
 import { Pre } from "../Pre";
+import { Representation } from "../Representation";
 
 import { getFloatClassFromDataView } from "./getFloatClassFromDataView";
+import { numberToString } from "./numberToString";
 
-export type DataType<R extends Representation> = R extends typeof Representation.HexNumber
-  ? FormatDataHexNumber
-  : R extends typeof Representation.HexString
-    ? FormatDataHexString
-    : R extends typeof Representation.Number
-      ? FormatDataNumber
-      : R extends typeof Representation.BitString
-        ? FormatDataBitString
-        : never;
+export type TargetDataOptions = Partial<Pick<Data, "enableSpecialValues" | "isLittleEndian" | "representation">>;
 
-export const getFormatItemData = <R extends Representation>(
-  data: Data,
-  params: FormatParams,
-  targetRepresentation: R,
-  targetIsLE?: boolean,
-): DataType<R> => {
-  targetIsLE = targetIsLE ?? data.isLittleEndian;
-  const { byteLength, isLittleEndian, representation, value } = data;
-  const isSingle = byteLength === ByteLength.Single;
+type Resolve<D extends Data, T extends TargetDataOptions, K extends keyof TargetDataOptions> = undefined extends T[K]
+  ? D[K]
+  : T[K];
+
+type Result<D extends Data, T extends TargetDataOptions> = Omit<
+  Data,
+  "enableSpecialValues" | "representation" | "isLittleEndian"
+> & {
+  enableSpecialValues: Resolve<D, T, "enableSpecialValues">;
+  representation: Resolve<D, T, "representation">;
+  isLittleEndian: Resolve<D, T, "isLittleEndian">;
+};
+
+export const getFormatItemData = <D extends Data, T extends TargetDataOptions = TargetDataOptions>(
+  data: D,
+  target: T,
+): Result<D, T> => {
+  const enableSpecialValues = target.enableSpecialValues ?? data.enableSpecialValues;
+  const representation = target.representation ?? data.representation;
+  const isLittleEndian = target.isLittleEndian ?? data.isLittleEndian;
+  const byteLength = data.byteLength;
   const dataView = new DataView(new ArrayBuffer(byteLength));
 
-  if (representation === Representation.HexNumber) {
-    if (isSingle) dataView.setUint32(0, value, isLittleEndian);
-    else dataView.setBigUint64(0, BigInt(value), isLittleEndian);
-  } else if (representation === Representation.HexString) {
-    if (isSingle) dataView.setUint32(0, parseInt(value, 16), isLittleEndian);
-    else dataView.setBigUint64(0, BigInt(Pre.Hex + value), isLittleEndian);
-  } else if (representation === Representation.Number) {
-    if (isSingle) dataView.setFloat32(0, value, isLittleEndian);
-    else dataView.setFloat64(0, value, isLittleEndian);
+  if (data.representation === Representation.HexBitPattern) {
+    if (byteLength === ByteLength.Single) dataView.setUint32(0, Number(Pre.Hex + data.value), data.isLittleEndian);
+    else dataView.setBigUint64(0, BigInt(Pre.Hex + data.value), data.isLittleEndian);
+  } else if (data.representation === Representation.Number) {
+    if (byteLength === ByteLength.Single) dataView.setFloat32(0, Number(data.value), data.isLittleEndian);
+    else dataView.setFloat64(0, Number(data.value), data.isLittleEndian);
   } else {
-    if (isSingle) dataView.setUint32(0, parseInt(value, 2), isLittleEndian);
-    else dataView.setBigUint64(0, BigInt(Pre.Bin + value), isLittleEndian);
+    if (byteLength === ByteLength.Single) dataView.setUint32(0, parseInt(data.value, 2), data.isLittleEndian);
+    else dataView.setBigUint64(0, BigInt(Pre.Bin + data.value), data.isLittleEndian);
   }
 
-  const dataObj: Partial<Data> = {
-    floatClass: getFloatClassFromDataView(dataView, byteLength, targetIsLE),
-    isLittleEndian: targetIsLE,
-    representation: targetRepresentation,
+  const floatClass = getFloatClassFromDataView(dataView, byteLength);
+
+  return {
+    byteLength,
+    enableSpecialValues,
+    floatClass,
+    isLittleEndian,
+    representation,
+    value: numberToString(dataView, {
+      byteLength,
+      enableSpecialValues,
+      floatClass,
+      isLittleEndian,
+      representation,
+    }),
   };
-
-  if (isSingle) dataObj.byteLength = byteLength as typeof ByteLength.Single;
-  else dataObj.byteLength = byteLength as typeof ByteLength.Double;
-
-  if (targetRepresentation === Representation.HexNumber) {
-    dataObj.value = (isSingle ? dataView.getUint32(0, targetIsLE) : dataView.getBigUint64(0, targetIsLE))
-      .toString(16)
-      .padStart(params.bitLength / 4, "0");
-  } else if (targetRepresentation === Representation.HexString) {
-    dataObj.value = (isSingle ? dataView.getUint32(0, targetIsLE) : dataView.getBigUint64(0, targetIsLE))
-      .toString(16)
-      .padStart(params.bitLength / 4, "0");
-  } else if (targetRepresentation === Representation.Number) {
-    dataObj.value = isSingle ? dataView.getFloat32(0, targetIsLE) : dataView.getFloat64(0, targetIsLE);
-  } else {
-    dataObj.value = (isSingle ? dataView.getUint32(0, targetIsLE) : dataView.getBigUint64(0, targetIsLE))
-      .toString(2)
-      .padStart(params.bitLength, "0");
-  }
-
-  return dataObj as DataType<R>;
 };

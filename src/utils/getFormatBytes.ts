@@ -1,4 +1,4 @@
-import { BasicFormat, type BasicFormatParamsType, BitField, BYTE_SIZE, type FormatItem } from "@/ieee754";
+import { BasicFormat, type BasicFormatParamsType, BYTE_SIZE, Field, type FormatItem } from "@/ieee754";
 
 export type BitValue = "0" | "1";
 
@@ -20,9 +20,9 @@ export type BitData = {
    */
   bitValue: BitValue;
   /**
-   * Current {@link BitField}.
+   * Current {@link Field}.
    */
-  field: BitField;
+  field: Field;
 };
 
 export type ByteData = {
@@ -36,7 +36,7 @@ export type ByteData = {
   bits: BitData[];
 };
 
-export type LSBMSBFields = Record<BitField, { lsb: number; msb: number }>;
+export type LSBMSBFields = Record<Field, { lsb: number; msb: number }>;
 
 /**
  * Get most significand bits indexes of fields.
@@ -70,12 +70,12 @@ const getLSBMSBFields = (params: BasicFormatParamsType[BasicFormat]): LSBMSBFiel
  *      STEP 2: (bits 12,11,10,9 = fieldname2); bit<=12
  * ```
  */
-export const getBitFieldName = (fields: LSBMSBFields, bitIdx: number): BitField => {
+export const getBitFieldName = (fields: LSBMSBFields, bitIdx: number): Field => {
   const { exponent, fraction } = fields;
 
-  if (bitIdx >= fraction.lsb && bitIdx <= fraction.msb) return BitField.Fraction;
-  if (bitIdx <= exponent.msb) return BitField.Exponent;
-  return BitField.Sign;
+  if (bitIdx >= fraction.lsb && bitIdx <= fraction.msb) return Field.Fraction;
+  if (bitIdx <= exponent.msb) return Field.Exponent;
+  return Field.Sign;
 };
 
 export const getFormatBytes = (formatData: FormatItem): ByteData[] => {

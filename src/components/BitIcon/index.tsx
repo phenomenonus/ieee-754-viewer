@@ -13,12 +13,12 @@ const useClasses = makeStyles({
     width: "20px",
   },
   medium: {
-    height: "18px",
-    width: "18px",
+    height: "16px",
+    width: "16px",
   },
   small: {
-    height: "14px",
-    width: "14px",
+    height: "13px",
+    width: "13px",
   },
 });
 

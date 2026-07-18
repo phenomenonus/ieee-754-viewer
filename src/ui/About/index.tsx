@@ -3,6 +3,8 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import {
+  Body1,
+  Body2,
   Button,
   type ButtonProps,
   Dialog,
@@ -20,6 +22,9 @@ import { IconButtonClose } from "@/components/IconButtonClose";
 import type { FC } from "@/types";
 
 const useClasses = makeStyles({
+  mt: {
+    marginTop: "1rem",
+  },
   root: {
     maxWidth: "720px",
   },
@@ -46,7 +51,12 @@ export const About: FC<ButtonProps> = (props) => {
           >
             {t("about.title")}
           </DialogTitle>
-          <DialogContent>{t("about.descrption")}</DialogContent>
+          <DialogContent>
+            <Body2 block>{t("about.description")}</Body2>
+            <Body1 block className={className.mt}>
+              {t("about.note")}
+            </Body1>
+          </DialogContent>
           <DialogActions>
             <DialogTrigger action="close" disableButtonEnhancement>
               <Button appearance="secondary" title={t("common.close")}>

@@ -3,13 +3,13 @@ import { BasicFormat } from "./BasicFormat";
 /**
  * The ratio of the bit ordinal number to the field, which is defined in the standard as Sign/Exponent/Fraction.
  */
-export const BitField = {
+export const Field = {
   Exponent: "exponent",
   Fraction: "fraction",
   Sign: "sign",
 } as const;
 
-export type BitField = (typeof BitField)[keyof typeof BitField];
+export type Field = (typeof Field)[keyof typeof Field];
 
 export type FormatParams = {
   bias: number;

@@ -1,44 +1,56 @@
 import type { ByteLength } from "../Byte";
 import { FloatClass } from "../FloatClass";
 
-export const getFloatClassFromDataView = (
-  dv: DataView,
-  byteLength: ByteLength,
-  isLittleEndian: boolean,
-): FloatClass => {
+export const getFloatClassFromDataView = (dv: DataView, byteLength: ByteLength): FloatClass => {
   if (byteLength === 4) {
-    const bits = dv.getUint32(0, isLittleEndian);
-    const sign = (bits >>> 31) & 1;
-    const exp = (bits >>> 23) & 0xff;
-    const frac = bits & 0x7fffff;
+    const bits = dv.getUint32(0, true);
 
-    if (exp === 0xff) {
-      if (frac === 0) return sign ? FloatClass.nInfinity : FloatClass.pInfinity;
-      return (frac >>> 22) & 1 ? FloatClass.qNaN : FloatClass.sNaN;
+    const negative = (bits & 0x80000000) !== 0;
+    const exponent = (bits >>> 23) & 0xff;
+    const fraction = bits & 0x007fffff;
+
+    if (exponent === 0xff) {
+      if (fraction === 0) {
+        return negative ? FloatClass.nInfinity : FloatClass.pInfinity;
+      }
+
+      const quiet = (fraction & 0x00400000) !== 0;
+      return quiet ? FloatClass.qNaN : FloatClass.sNaN;
     }
 
-    if (exp === 0) {
-      if (frac === 0) return sign ? FloatClass.nZero : FloatClass.pZero;
-      return sign ? FloatClass.nSubnormal : FloatClass.pSubnormal;
+    if (exponent === 0) {
+      if (fraction === 0) {
+        return negative ? FloatClass.nZero : FloatClass.pZero;
+      }
+
+      return negative ? FloatClass.nSubnormal : FloatClass.pSubnormal;
     }
 
-    return sign ? FloatClass.nNormal : FloatClass.pNormal;
+    return negative ? FloatClass.nNormal : FloatClass.pNormal;
   }
 
-  const bits = dv.getBigUint64(0, isLittleEndian);
-  const sign = (bits >> 63n) & 1n;
-  const exp = (bits >> 52n) & 0x7ffn;
-  const frac = bits & 0xfffffffffffffn; // 52 бита
+  const bits = dv.getBigUint64(0, true);
 
-  if (exp === 0x7ffn) {
-    if (frac === 0n) return sign === 1n ? FloatClass.nInfinity : FloatClass.pInfinity;
-    return ((frac >> 51n) & 1n) === 1n ? FloatClass.qNaN : FloatClass.sNaN;
+  const negative = (bits & 0x8000000000000000n) !== 0n;
+  const exponent = (bits >> 52n) & 0x7ffn;
+  const fraction = bits & 0x000fffffffffffffn;
+
+  if (exponent === 0x7ffn) {
+    if (fraction === 0n) {
+      return negative ? FloatClass.nInfinity : FloatClass.pInfinity;
+    }
+
+    const quiet = (fraction & 0x0008000000000000n) !== 0n;
+    return quiet ? FloatClass.qNaN : FloatClass.sNaN;
   }
 
-  if (exp === 0n) {
-    if (frac === 0n) return sign === 1n ? FloatClass.nZero : FloatClass.pZero;
-    return sign === 1n ? FloatClass.nSubnormal : FloatClass.pSubnormal;
+  if (exponent === 0n) {
+    if (fraction === 0n) {
+      return negative ? FloatClass.nZero : FloatClass.pZero;
+    }
+
+    return negative ? FloatClass.nSubnormal : FloatClass.pSubnormal;
   }
 
-  return sign === 1n ? FloatClass.nNormal : FloatClass.pNormal;
+  return negative ? FloatClass.nNormal : FloatClass.pNormal;
 };

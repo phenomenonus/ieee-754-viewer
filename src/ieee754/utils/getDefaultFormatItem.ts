@@ -4,24 +4,27 @@ import type { BasicFormat } from "../BasicFormat";
 import { basicFormatParams } from "../BasicFormatParams";
 import { getByteLength } from "../Byte";
 import { FloatClass } from "../FloatClass";
-import { type FormatItem, Representation } from "../FormatData";
+import { type FormatItem } from "../FormatData";
+import { Representation } from "../Representation";
 
 import { checkIfLittleEndian } from "./getEndianness";
 import { getFormatItemData } from "./getFormatItemData";
 
-export const getDefaultFormatItem = (format: BasicFormat, value = 0): FormatItem => {
+export const getDefaultFormatItem = (format: BasicFormat): FormatItem => {
   const params = basicFormatParams[format];
-  const byteLength = getByteLength(params);
-  const isLittleEndian = checkIfLittleEndian();
-  const data = getFormatItemData<typeof Representation.BitString>(
-    { byteLength, floatClass: FloatClass.pZero, isLittleEndian, representation: Representation.Number, value },
-    params,
-    Representation.BitString,
-    isLittleEndian,
-  );
 
   return {
-    data,
+    data: getFormatItemData(
+      {
+        byteLength: getByteLength(params),
+        enableSpecialValues: true,
+        floatClass: FloatClass.pZero,
+        isLittleEndian: checkIfLittleEndian(),
+        representation: Representation.Number,
+        value: String(0),
+      },
+      { representation: Representation.BitString },
+    ),
     format,
     id: Date.now().toString(),
     idx: 0,

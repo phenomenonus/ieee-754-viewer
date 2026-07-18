@@ -46,7 +46,18 @@ export const Help: FC<ButtonProps> = (props) => {
           >
             {t("help.title")}
           </DialogTitle>
-          <DialogContent>Content</DialogContent>
+          <DialogContent>
+            <ul>
+              <li>{t("help.features.0")}</li>
+              <li>{t("help.features.1")}</li>
+              <li>{t("help.features.2")}</li>
+              <li>{t("help.features.3")}</li>
+              <li>{t("help.features.4")}</li>
+              <li>{t("help.features.5")}</li>
+              <li>{t("help.features.6")}</li>
+              <li>{t("help.features.7")}</li>
+            </ul>
+          </DialogContent>
           <DialogActions>
             <DialogTrigger action="close" disableButtonEnhancement>
               <Button appearance="secondary" title={t("common.close")}>

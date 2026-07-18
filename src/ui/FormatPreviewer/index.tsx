@@ -12,18 +12,20 @@ import {
   makeStyles,
   mergeClasses,
   Subtitle2,
+  Switch,
   tokens,
 } from "@fluentui/react-components";
 
 import { InputFieldWithLabel } from "@/components";
 
-import { Bit, FieldsInfo, SpecialItems, ToggleEndianness, ViewOptionsButton } from "@/ui";
+import { Bit, FieldsInfo, FormatItemInfo, SpecialItems, ToggleEndianness, ViewOptionsButton } from "@/ui";
 
 import { BitAppearance, type ByteData, ByteLabel, getFormatBytes, ViewOption } from "@/utils";
 
 import type { IEEEStore } from "@/store";
 
-import { BYTE_SIZE, type Data, type FormatItem, Representation } from "@/ieee754";
+import { BYTE_SIZE, type Data, Endianness, type FormatItem } from "@/ieee754";
+import { Representation } from "@/ieee754/Representation";
 
 import type { FC } from "@/types";
 
@@ -52,7 +54,23 @@ const useClasses = makeStyles({
   divider: {
     margin: "1rem 0",
   },
+  flexR: {
+    alignItems: "center",
+    display: "flex",
+  },
   flexRow: {
+    alignItems: "center",
+    columnGap: "0.5rem",
+    display: "flex",
+  },
+  flexRowBetween: {
+    alignItems: "center",
+    columnGap: "0.5rem",
+    display: "flex",
+    justifyContent: "space-between",
+    marginBottom: "0.5rem",
+  },
+  flexRowEnd: {
     alignItems: "center",
     columnGap: "0.5rem",
     display: "flex",
@@ -73,12 +91,14 @@ const useClasses = makeStyles({
 });
 
 export type FormatPreviewerProps = {
-  formatItem: FormatItem;
   changeViewOption: IEEEStore["changeViewOption"];
   deleteFormatItem: IEEEStore["deleteFormatItem"];
+  formatItem: FormatItem;
   getFormatItemDataValue: IEEEStore["getFormatItemDataValue"];
+  setEnableSpecialValues: IEEEStore["setEnableSpecialValues"];
   setFormatItemData: IEEEStore["setFormatItemData"];
   setFormatItemDataEndianness: IEEEStore["setFormatItemDataEndianness"];
+  systemEndianness: Endianness;
 };
 
 export const FormatPreviewer: FC<FormatPreviewerProps> = ({
@@ -86,15 +106,19 @@ export const FormatPreviewer: FC<FormatPreviewerProps> = ({
   deleteFormatItem,
   formatItem,
   getFormatItemDataValue,
+  setEnableSpecialValues,
   setFormatItemData,
   setFormatItemDataEndianness,
+  systemEndianness,
 }) => {
+  const isSystemLE = systemEndianness === Endianness.LE;
   const formatItemId = formatItem.id;
   const [numberValue, setNumberValue] = React.useState<string>(
-    getFormatItemDataValue(formatItemId, Representation.Number),
+    getFormatItemDataValue(formatItemId, { isLittleEndian: isSystemLE, representation: Representation.Number }),
   );
 
   const labelId = React.useId();
+  const switchLabelId = React.useId();
   const className = useClasses();
   const { t } = useTranslation("common");
 
@@ -108,9 +132,16 @@ export const FormatPreviewer: FC<FormatPreviewerProps> = ({
 
   const bytes: ByteData[] = getFormatBytes(formatItem);
 
-  const updateDataValue = (newData: Data) => {
-    setFormatItemData(formatItemId, newData);
-    setNumberValue(getFormatItemDataValue(formatItemId, Representation.Number));
+  const updateDataValue = (newData?: Data) => {
+    if (newData !== undefined) setFormatItemData(formatItemId, newData);
+    setNumberValue(
+      getFormatItemDataValue(formatItemId, { isLittleEndian: isSystemLE, representation: Representation.Number }),
+    );
+  };
+
+  const onChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+    setEnableSpecialValues(formatItemId, ev.currentTarget.checked);
+    updateDataValue();
   };
 
   const toggleFormatBit = (byteIdx: number, bitIdxInByte: number) => {
@@ -128,7 +159,7 @@ export const FormatPreviewer: FC<FormatPreviewerProps> = ({
     updateDataValue({
       ...formatItem.data,
       representation: Representation.Number,
-      value: Number(data.value),
+      value: data.value,
     });
   };
 
@@ -167,9 +198,35 @@ export const FormatPreviewer: FC<FormatPreviewerProps> = ({
         value={numberValue}
       />
 
-      <SpecialItems formatItem={formatItem} updateDataValue={updateDataValue} />
+      <div className={mergeClasses(className.flexR, className.mb)}>
+        <Switch
+          checked={formatItem.data.enableSpecialValues}
+          id={switchLabelId}
+          label={t("formatPreviewer.switch")}
+          onChange={onChange}
+          size="small"
+        />
+        <InfoLabel
+          htmlFor={labelId}
+          info={
+            <Trans
+              components={[
+                <Link href="https://en.wikipedia.org/wiki/IEEE_754#Special_values" target="_blank" />,
+                <Link href="https://en.wikipedia.org/wiki/IEEE_754#Signed_zero" target="_blank" />,
+                <Link href="https://en.wikipedia.org/wiki/IEEE_754#NaNs" target="_blank" />,
+                <Link href="https://tc39.es/ecma262/#sec-ecmascript-language-types-number-type" target="_blank" />,
+              ]}
+              i18nKey="formatPreviewer.switchInfoLabel"
+              t={t}
+            />
+          }
+          size="large"
+        />
+      </div>
 
-      <div className={className.flexRow}>
+      <SpecialItems formatItem={formatItem} setFormatItemData={setFormatItemData} updateDataValue={updateDataValue} />
+
+      <div className={className.flexRowEnd}>
         <InfoLabel
           htmlFor={labelId}
           info={
@@ -214,9 +271,22 @@ export const FormatPreviewer: FC<FormatPreviewerProps> = ({
 
       <Card appearance="filled-alternative" className={className.mb2} size="small">
         <FieldsInfo enableColors={appearance === BitAppearance.Colored} params={formatItem.params} />
+        <Divider appearance="subtle" />
+        <FormatItemInfo
+          formatItem={formatItem}
+          hexValue={getFormatItemDataValue(formatItemId, {
+            enableSpecialValues: false,
+            representation: Representation.HexBitPattern,
+          })}
+          numberValue={getFormatItemDataValue(formatItemId, {
+            enableSpecialValues: false,
+            isLittleEndian: isSystemLE,
+            representation: Representation.Number,
+          })}
+        />
       </Card>
 
-      <div className={className.flexRow}>
+      <div className={className.flexRowEnd}>
         <Button onClick={() => deleteFormatItem(formatItemId)}>{t("formatPreviewer.remove")}</Button>
       </div>
     </>

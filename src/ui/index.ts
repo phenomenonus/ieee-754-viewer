@@ -3,6 +3,7 @@ export * from "./About";
 export * from "./AddFormatButton";
 export * from "./Bit";
 export * from "./FieldsInfo";
+export * from "./FormatItemInfo";
 export * from "./FormatPreviewer";
 export * from "./Help";
 export * from "./IEEEWrapper";

@@ -11,7 +11,7 @@ import { Endianness } from "@/ieee754";
 import type { FC } from "@/types";
 
 const useClasses = makeStyles({
-  flexRow: {
+  flexRowEnd: {
     alignItems: "center",
     columnGap: "0.5rem",
     display: "flex",
@@ -39,7 +39,7 @@ export const ToggleEndianness: FC<ToggleEndiannessProps> = ({
   const { t } = useTranslation("common");
 
   return (
-    <div className={defaultClassName.flexRow}>
+    <div className={defaultClassName.flexRowEnd}>
       <InfoLabel
         className={defaultClassName.infoLabel}
         htmlFor={labelId}
@@ -55,7 +55,7 @@ export const ToggleEndianness: FC<ToggleEndiannessProps> = ({
       <div>
         <Button
           appearance={isLittleEndian ? "primary" : "secondary"}
-          onClick={() => setFormatItemDataEndianness(formatDataId, true)}
+          onClick={isLittleEndian ? undefined : () => setFormatItemDataEndianness(formatDataId, true)}
           shape="square"
           size="small"
         >
@@ -63,7 +63,7 @@ export const ToggleEndianness: FC<ToggleEndiannessProps> = ({
         </Button>
         <Button
           appearance={isLittleEndian ? "secondary" : "primary"}
-          onClick={() => setFormatItemDataEndianness(formatDataId, false)}
+          onClick={isLittleEndian ? () => setFormatItemDataEndianness(formatDataId, false) : undefined}
           shape="square"
           size="small"
         >

@@ -1,20 +1,17 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-import { numberToString } from "@/utils";
-
 import {
   BasicFormat,
-  changeDataValueBitString,
-  changeDataValueEndianness,
   type Data,
   Endianness,
   type FormatItem,
   getDefaultFormatItem,
   getEndianness,
   getFormatItemData,
-  Representation,
+  type TargetDataOptions,
 } from "@/ieee754";
+import { Representation } from "@/ieee754/Representation";
 
 type State = {
   list: FormatItem[];
@@ -26,13 +23,14 @@ type State = {
 
 type Actions = {
   addFormatItem: (format: BasicFormat) => void;
-  clearFormatList: () => void;
   changeViewOption: (id: string, optionName: string, value: string[]) => void;
+  clearFormatList: () => void;
   deleteFormatItem: (id: string) => void;
+  getFormatItemDataValue: (id: string, target: TargetDataOptions) => string;
   resetFormatData: (id: string) => void;
+  setEnableSpecialValues: (id: string, enableSpecialValues: boolean) => void;
   setFormatItemData: (id: string, newData: Data, targetIsLE?: boolean) => void;
   setFormatItemDataEndianness: (id: string, targetIsLE: boolean) => void;
-  getFormatItemDataValue: (id: string, representation: Representation) => string;
 };
 
 export type IEEEStore = State & Actions;
@@ -50,30 +48,41 @@ export const useIEEE = create<IEEEStore>()(
       clearFormatList: () => set({ list: [] }),
       deleteFormatItem: (id) => set((state) => ({ list: state.list.filter((item) => item.id !== id) })),
       endianness: getEndianness(),
-      getFormatItemDataValue: (id, representation) => {
+      getFormatItemDataValue: (id, target) => {
         const formatItem = get().list.find((item) => item.id === id)!;
-        const formatData = getFormatItemData(
-          formatItem.data,
-          formatItem.params,
-          representation ?? formatItem.data.representation,
-        );
-        return numberToString(formatData);
+        return getFormatItemData(formatItem.data, target).value;
       },
       list: [getDefaultFormatItem(BasicFormat.Binary64)],
       resetFormatData: (id) =>
         set((state) => ({
           list: state.list.map((item) => (item.id === id ? getDefaultFormatItem(item.format) : item)),
         })),
-      setFormatItemData: (id, newData, targetIsLE) =>
+      setEnableSpecialValues: (id: string, enableSpecialValues: boolean) =>
         set((state) => ({
           list: state.list.map((item) =>
-            item.id === id ? { ...item, data: changeDataValueBitString(newData, item.params, targetIsLE) } : item,
+            item.id === id
+              ? {
+                  ...item,
+                  data: getFormatItemData(item.data, { enableSpecialValues }),
+                }
+              : item,
           ),
         })),
-      setFormatItemDataEndianness: (id, targetIsLE) =>
+      setFormatItemData: (id, newData, isLittleEndian) =>
         set((state) => ({
           list: state.list.map((item) =>
-            item.id === id ? { ...item, data: changeDataValueEndianness(item, targetIsLE) } : item,
+            item.id === id
+              ? {
+                  ...item,
+                  data: getFormatItemData(newData, { isLittleEndian, representation: Representation.BitString }),
+                }
+              : item,
+          ),
+        })),
+      setFormatItemDataEndianness: (id, isLittleEndian) =>
+        set((state) => ({
+          list: state.list.map((item) =>
+            item.id === id ? { ...item, data: getFormatItemData(item.data, { isLittleEndian }) } : item,
           ),
         })),
     }),

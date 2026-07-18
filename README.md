@@ -1,10 +1,10 @@
 # IEEE 754 Viewer
 
-IEEE 754 standard visualization.
-
-_It does not claim to replace the standard or be the final authority. Its purpose is to facilitate understanding of the standard._
-
 ![GitHub License](https://img.shields.io/github/license/phenomenonus/ieee-754-viewer?color=blue)
+
+[IEEE 754 standard visualization](https://phenomenonus.github.io/ieee-754-viewer/)
+
+_APP does not claim to replace the standard or be the final authority. Its purpose is to facilitate understanding of the standard._
 
 ---
 
@@ -179,9 +179,18 @@ These checks are also run automatically before each commit via Git hooks (Husky 
 - [Bit numbering](https://en.wikipedia.org/wiki/Bit_numbering)
 - [Byte](https://en.wikipedia.org/wiki/Byte)
 - [Endianness](https://en.wikipedia.org/wiki/Endianness)
-- [Binary number](https://en.wikipedia.org/wiki/Binary_number)
 - [Bitwise operation](https://en.wikipedia.org/wiki/Bitwise_operation)
 - [Primitive data type](https://en.wikipedia.org/wiki/Primitive_data_type)
+
+---
+
+- [Radix](https://en.wikipedia.org/wiki/Radix)
+- [Computer number format(representation)](https://en.wikipedia.org/wiki/Computer_number_format)
+- [Hexadecimal](https://en.wikipedia.org/wiki/Hexadecimal)
+  - [Bit pattern](https://en.wikipedia.org/wiki/Hexadecimal#Bit_pattern)
+  - [Exponential notation](https://en.wikipedia.org/wiki/Hexadecimal#Exponential_notation)
+- [Decimal](https://en.wikipedia.org/wiki/Decimal)
+- [Binary number](https://en.wikipedia.org/wiki/Binary_number)
 
 ---
 

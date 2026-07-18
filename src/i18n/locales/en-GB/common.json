@@ -5,7 +5,8 @@
   },
   "about": {
     "title": "About",
-    "descrption": "The app does not claim to replace the standard or be the final authority. Its purpose is to facilitate understanding of the standard."
+    "description": "The application lets you interactively study the basic IEEE 754 formats and numbers in various representations.",
+    "note": "The app does not claim to replace the IEEE 754 standard or to be a final authoritative source. Its purpose is to make the IEEE 754 standard easier to understand."
   },
   "addFormatButton": {
     "infoLabel": "The IEEE 754 standard includes 5 <0>basic formats</0>:",
@@ -29,10 +30,31 @@
     "msb": "Most significant bit",
     "sign": "Sign bit",
     "exponent": "Exponent field",
-    "fraction": "Fraction field"
+    "fraction": "Fraction field",
+    "s": "Sign",
+    "e": "Exponent",
+    "f": "Fraction"
+  },
+  "formatItemInfo": {
+    "decimalValue": "Decimal Value",
+    "hexBitPattern": "Hexadecimal Bit Pattern",
+    "binaryBitPattern": "Binary Bit Pattern",
+    "classification": "Classification",
+    "sign": "Sign",
+    "biasValue": "Bias value",
+    "unbiasedExponentValue": "Unbiased Exponent value",
+    "biasedExponentValue": "Biased Exponent value",
+    "fractionValue": "Fraction value",
+    "endianness": "Endianness",
+    "systemEndianness": "System Endianness",
+    "0": "Positive",
+    "1": "Negative",
+    "infoLabel": "<0>Hexadecimal</0> integer value of the <1>bitstring</1> printed as hex. Don't confuse this with <2>hexadecimal floating point values</2> in the style of 0xab.12ef."
   },
   "formatPreviewer": {
     "infoLabel": "Click on the <0>bits</0> to toggle their <1>logical state</1>. You can also customize their display using the button on the right.",
+    "switch": "Enable special numeric values",
+    "switchInfoLabel": "This flag controls the rendering of <0>special IEEE 754 values</0>: <1>negative zero (-0)</1>, <2>quiet NaN (qNaN), and signaling NaN (sNaN)</2>. In standard JavaScript conversions from number to string, -0 is rendered as 0, and <3>distinctions between qNaN and sNaN</3> are not reflected in the output for NaN.",
     "cardTitle": "There is format data in different representations and some additonal information.",
     "binary": "Binary representation",
     "decimal": "Decimal representation",
@@ -57,7 +79,17 @@
     "sNaN": "Signaling NaN"
   },
   "help": {
-    "title": "Help"
+    "title": "Help",
+    "features": {
+      "0": "Use the “Add format/Remove” buttons to work with a specific format.",
+      "1": "Use the input field to edit or view a decimal number.",
+      "2": "Use the bit buttons to toggle the logical state of the bits.",
+      "3": "Use the switch to enable displaying additional values: “-0”, “qNaN”, “sNaN”.",
+      "4": "Use the special value buttons as examples to study them.",
+      "5": "Use the byte-order switch to toggle between little-endian and big-endian.",
+      "6": "Use the bit visualization settings button (next to the bit buttons) to configure how the bits are displayed.",
+      "7": "Use the hint buttons to get additional information."
+    }
   },
   "ieee": {
     "format": {

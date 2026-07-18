@@ -12,6 +12,7 @@ import { BitAppearance, type BitData, BitLabel, BitSize } from "@/utils";
 const useClasses = makeStyles({
   button: {
     margin: "0.5rem 0 0 1px",
+    padding: 0,
   },
   exponent: {
     backgroundColor: tokens.colorPaletteBlueBackground2,
@@ -26,13 +27,43 @@ const useClasses = makeStyles({
     display: "block",
     textAlign: "center",
   },
+  large: {
+    height: "24px",
+    minHeight: "24px",
+    minWidth: "24px",
+    width: "24px",
+  },
+  medium: {
+    height: "22px",
+    minHeight: "22px",
+    minWidth: "22px",
+    width: "22px",
+  },
   sign: {
     backgroundColor: tokens.colorPaletteDarkOrangeBackground1,
     color: tokens.colorPaletteDarkOrangeForeground1,
   },
+  small: {
+    height: "19px",
+    minHeight: "19px",
+    minWidth: "19px",
+    width: "19px",
+  },
   wrapper: {
     display: "inline-block",
     margin: "0.5rem 0 0 1px",
+  },
+});
+
+const useLabelClasses = makeStyles({
+  large: {
+    fontSize: "14px",
+  },
+  medium: {
+    fontSize: "13px",
+  },
+  small: {
+    fontSize: "12px",
   },
 });
 
@@ -48,6 +79,7 @@ export const Bit: FC<BitProps> = ({ appearance, bitData, label, onClick, size })
   const id = React.useId();
   const { t } = useTranslation("common");
   const className = useClasses();
+  const labelClassName = useLabelClasses()[size];
 
   const title = `{${bitData.bitValue}}; ${t(`bit.indexInByte`)}: ${bitData.bitIdxInByte}`;
 
@@ -55,7 +87,11 @@ export const Bit: FC<BitProps> = ({ appearance, bitData, label, onClick, size })
     return (
       <Button
         appearance={appearance !== BitAppearance.Colored ? appearance : undefined}
-        className={mergeClasses(className.button, appearance === BitAppearance.Colored && className[bitData.field])}
+        className={mergeClasses(
+          className.button,
+          className[size],
+          appearance === BitAppearance.Colored && className[bitData.field],
+        )}
         icon={<BitIcon bit={bitData.bitValue} size={size} />}
         id={id}
         onClick={onClick}
@@ -81,7 +117,7 @@ export const Bit: FC<BitProps> = ({ appearance, bitData, label, onClick, size })
     <div className={className.wrapper}>
       <Button
         appearance={appearance !== BitAppearance.Colored ? appearance : undefined}
-        className={appearance === BitAppearance.Colored ? className[bitData.field] : undefined}
+        className={mergeClasses(className[size], appearance === BitAppearance.Colored && className[bitData.field])}
         icon={<BitIcon bit={bitData.bitValue} size={size} />}
         id={id}
         onClick={onClick}
@@ -89,7 +125,12 @@ export const Bit: FC<BitProps> = ({ appearance, bitData, label, onClick, size })
         size={size}
         title={title}
       />
-      <Label className={className.label} htmlFor={id} size={size} title={`${t(`bit.${label}`)}: ${labelValue}`}>
+      <Label
+        className={mergeClasses(className.label, labelClassName)}
+        htmlFor={id}
+        size={size}
+        title={`${t(`bit.${label}`)}: ${labelValue}`}
+      >
         {labelValue}
       </Label>
     </div>
